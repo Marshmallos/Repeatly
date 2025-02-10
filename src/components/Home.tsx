@@ -90,6 +90,14 @@ export default function Home() {
     queryFn: getProjects,
   });
 
+  function filterData(projectList: Array<ProjectDetails>) {
+    if (filterTags.length < 1) {
+      return projectList;
+    }
+
+    return projectList.filter((project) => filterTags.includes(project.status));
+  }
+
   return (
     <div className="pt-12 px-2">
       <div className="border-3 rounded-lg">
@@ -128,23 +136,21 @@ export default function Home() {
             </thead>
             <tbody className="text-center">
               {projectQuery.isSuccess &&
-                projectQuery.data
-                  .filter((project) => filterTags.includes(project.status))
-                  .map((project) => {
-                    return (
-                      <tr key={project.id}>
-                        <td
-                          className="text-start pl-2"
-                          onClick={() => showProjectDetails(project)}
-                        >
-                          {project.name}
-                        </td>
-                        <td>{project.startDate}</td>
-                        <td>{project.endDate}</td>
-                        <td>{project.status}</td>
-                      </tr>
-                    );
-                  })}
+                filterData(projectQuery.data).map((project) => {
+                  return (
+                    <tr key={project.id}>
+                      <td
+                        className="text-start pl-2"
+                        onClick={() => showProjectDetails(project)}
+                      >
+                        {project.name}
+                      </td>
+                      <td>{project.startDate}</td>
+                      <td>{project.endDate}</td>
+                      <td>{project.status}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
