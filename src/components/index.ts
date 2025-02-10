@@ -5,5 +5,6 @@ import Welcome from "./Welcome";
 import RegisterLogo from "./RegisterLogo";
 import LoginLogo from "./LoginLogo";
 import Dashboard from "./Dashboard";
+import Project from "./Project";
 
-export {Home, Login, Registration, Welcome, RegisterLogo, LoginLogo, Dashboard};
+export {Home, Login, Registration, Welcome, RegisterLogo, LoginLogo, Dashboard, Project};

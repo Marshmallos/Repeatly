@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 import { ProjectDetails } from "../types";
 import { ChangeEvent, useState } from "react";
 import { Dashboard } from "../components";
+import ProjectModal, { ProjectModalData } from "./ProjectModal";
 function getTags() {
   return [
     "In Progress",
@@ -57,14 +59,47 @@ function getProjects() {
       endDate: "2024-05-20",
       status: "In Progress",
     },
+    {
+      id: 6,
+      name: "Customer Relationship Management (CRM) System",
+      startDate: "2023-11-01",
+      endDate: "2024-05-20",
+      status: "Delayed",
+    },
   ] satisfies Array<ProjectDetails>;
 }
 
+const defaultProjectModalData = { id: 1, name: "House viewing 3D renderer" };
+
 export default function Home() {
+  const navigate = useNavigate();
   const [displayData, setDisplayData] = useState<ProjectDetails | undefined>(
     undefined
   );
   const [filterTags, setFilterTags] = useState<Array<string>>([]);
+  const [projectFormData, setProjectFormData] = useState<ProjectModalData>(
+    defaultProjectModalData
+  );
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState<boolean>(false);
+
+  async function handleSubmit(projectData: ProjectModalData): Promise<void> {
+    setProjectFormData(projectData);
+
+    setIsProjectModalOpen(false);
+    const valid = true;
+    if (valid) {
+      // navigate(`/project?id=${projectData.id}`);
+      navigate(`/project/${projectData.id}`);
+    }
+  }
+
+  function handleOpenProjectModal() {
+    setIsProjectModalOpen(true);
+  }
+
+  function handleCloseProjectModal() {
+    setIsProjectModalOpen(false);
+  }
 
   function handleCheckbox(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.checked) {
@@ -97,14 +132,14 @@ export default function Home() {
 
     return projectList.filter((project) => filterTags.includes(project.status));
   }
-
+  const headerStyle = "p-2";
   return (
     <div className="pt-12 px-2">
       <div className="border-3 rounded-lg">
         <Dashboard projectDetails={displayData} />
       </div>
-      <div className="grid md:grid-flow-row lg:grid-flow-col grid-rows-6 gap-4 pt-4">
-        <div className="row-span-6 border-1 rounded-lg shadow-md">
+      <div className="flex pt-4 justify-between">
+        {/* <div className="flex flex-col border-1 rounded-lg p-2">
           <input type="text" placeholder="Search tags..."></input>
           {tagsQuery.isSuccess &&
             tagsQuery.data.map((item) => {
@@ -123,15 +158,36 @@ export default function Home() {
                 </div>
               );
             })}
-        </div>
-        <div className="col-span-3 row-span-6 border-1 rounded-lg shadow-md">
-          <table className="w-full border-separate border-spacing-4">
+        </div> */}
+        <div className="pl-4 flex flex-col w-full">
+          <div className="pb-2 grid grid-cols-7 gap-2">
+            <button
+              className="border p-2 rounded-lg bg-green-400 hover:bg-white"
+              onClick={handleOpenProjectModal}
+            >
+              Create new project
+            </button>
+            <ProjectModal
+              isOpen={isProjectModalOpen}
+              modalData={projectFormData}
+              onClose={handleCloseProjectModal}
+              onSubmit={handleSubmit}
+            />
+            <input
+              type="text"
+              placeholder="Search"
+              className="border rounded-full p-2 col-span-2"
+            ></input>
+          </div>
+          {/* <table className="border-1">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Status</th>
+                <th className={headerStyle}>Name</th>
+                <th className={headerStyle}>Start</th>
+                <th className={headerStyle}>End</th>
+                <th className={headerStyle}>Status</th>
+                <th className={headerStyle}>View</th>
+                <th className={headerStyle}>Edit</th>
               </tr>
             </thead>
             <tbody className="text-center">
@@ -140,7 +196,7 @@ export default function Home() {
                   return (
                     <tr key={project.id}>
                       <td
-                        className="text-start pl-2"
+                        className="text-start p-3.5"
                         onClick={() => showProjectDetails(project)}
                       >
                         {project.name}
@@ -148,11 +204,17 @@ export default function Home() {
                       <td>{project.startDate}</td>
                       <td>{project.endDate}</td>
                       <td>{project.status}</td>
+                      <td>
+                        <button>View</button>
+                      </td>
+                      <td>
+                        <button>Edit</button>
+                      </td>
                     </tr>
                   );
                 })}
             </tbody>
-          </table>
+          </table> */}
         </div>
       </div>
     </div>
