@@ -139,7 +139,7 @@ export default function Home() {
         <Dashboard projectDetails={displayData} />
       </div>
       <div className="flex pt-4 justify-between">
-        {/* <div className="flex flex-col border-1 rounded-lg p-2">
+        <div className="flex flex-col border-1 rounded-lg p-2">
           <input type="text" placeholder="Search tags..."></input>
           {tagsQuery.isSuccess &&
             tagsQuery.data.map((item) => {
@@ -158,7 +158,7 @@ export default function Home() {
                 </div>
               );
             })}
-        </div> */}
+        </div>
         <div className="pl-4 flex flex-col w-full">
           <div className="pb-2 grid grid-cols-7 gap-2">
             <button
@@ -179,7 +179,7 @@ export default function Home() {
               className="border rounded-full p-2 col-span-2"
             ></input>
           </div>
-          {/* <table className="border-1">
+          <table className="border-1">
             <thead>
               <tr>
                 <th className={headerStyle}>Name</th>
@@ -214,7 +214,7 @@ export default function Home() {
                   );
                 })}
             </tbody>
-          </table> */}
+          </table>
         </div>
       </div>
     </div>

@@ -2,30 +2,22 @@ import React, { useRef, useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   children: React.ReactNode;
 }
 
-// const modalStyle =
-//   "max-w-[20rem] p-8 border-0 rounded-lg absolute shadow-[0_0_0.5rem_0.25rem_hsl(0_0%_0%_/_10%)] backdrop-blue-xl top";
 const modalStyle =
-  "absolute left-[51rem] top-[22rem] max-w-[20rem] p-8 rounded-lg backdrop-blue-xl";
-const buttonStyle = "modal-close-btn text-xs absolute top-1 right-1";
+  "absolute left-[50%] top-[50%] -translate-[50%] rounded-lg p-2";
+// const modalStyle = "";
+const buttonStyle =
+  "text-xs bg-red-500 rounded-lg text-white hover:bg-red-800 p-1";
+
+const divStyle =
+  "fixed top-0 left-0 z-30 h-screen w-screen bg-black opacity-70";
+
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
+  // export default function Modal({ isOpen, onClose, children }: ModalProps) {
   const modalRef = useRef<HTMLDialogElement>(null);
-
-  function handleCloseModal() {
-    if (onClose !== undefined) {
-      onClose();
-    }
-  }
-
-  function handleKeyDown(event: React.KeyboardEvent<HTMLDialogElement>) {
-    if (event.key === "escape") {
-      handleCloseModal();
-    }
-  }
-
   useEffect(() => {
     const modalElement = modalRef.current;
     if (!modalElement) return;
@@ -38,17 +30,17 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   }, [isOpen]);
 
   return (
-    <dialog ref={modalRef} className={modalStyle} onKeyDown={handleKeyDown}>
-      {onClose !== undefined && (
+    <div className={isOpen ? divStyle : ""}>
+      <dialog ref={modalRef} className={modalStyle} onCancel={onClose}>
+        {children}
         <button
-          onClick={handleCloseModal}
+          onClick={onClose}
           className={buttonStyle}
           aria-label="Close modal"
         >
-          Close
+          Cancel
         </button>
-      )}
-      {children}
-    </dialog>
+      </dialog>
+    </div>
   );
 }

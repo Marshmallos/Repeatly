@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Home, Welcome, Project } from "./components";
+import { Home, Welcome, Project, Task } from "./components";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -19,6 +19,7 @@ export default function App() {
             <Route element={<ProtectedRoutes />}>
               <Route path="/home" element={<Home />} />
               <Route path="/project/:id" element={<Project />} />
+              <Route path="/task" element={<Task />} />
             </Route>
           </Routes>
         </QueryClientProvider>

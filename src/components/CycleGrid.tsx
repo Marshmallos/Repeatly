@@ -26,7 +26,7 @@ export default function CycleGrid({ rows }: { rows: Array<Cycle> }) {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
+        checkboxSelection={false}
         disableRowSelectionOnClick
       />
     </div>

@@ -30,7 +30,7 @@ export default function ActivityGrid({ rows }: { rows: Array<Activity> }) {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
+        checkboxSelection={false}
         disableRowSelectionOnClick
       />
     </div>
