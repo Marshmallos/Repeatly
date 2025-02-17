@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from config import settings
 
 
 def create_app(test_config=None):
@@ -19,9 +20,13 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    from routes import api
 
-    @app.route("/hello")
-    def hello_world():
-        return "hello_world"
+    app.register_blueprint(api)
 
     return app
+
+
+if __name__ == "__main__":
+    app = create_app()
+    app.run(host=settings.HOST, port=settings.PORT)
