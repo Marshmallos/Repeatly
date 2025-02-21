@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:latest # Use the latest version of PostgreSQL
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER} # Use variable from .env
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # Use variable from .env
+      POSTGRES_DB: ${POSTGRES_DB} # Use variable from .env
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data # Persist data
+    ports:
+      - "5432:5432" # Expose PostgreSQL on port 5432
+
+# volumes:
+#   postgres_data: # Create a named volume for data persistence
