@@ -14,8 +14,8 @@ def create_app():
         SQLALCHEMY_DATABASE_URI=settings.DATABASE_URI,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
-    ma.init_app(app)
     db.init_app(app)
+    ma.init_app(app)
 
     from routes import api
 
