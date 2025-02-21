@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Home, Welcome, Project, Task } from "./components";
-import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -13,14 +11,7 @@ export default function App() {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <QueryClientProvider client={queryClient}>
           <Routes>
-            <Route path="/" element={<Welcome />} />
-            {/* <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Registration />} /> */}
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/home" element={<Home />} />
-              <Route path="/project/:id" element={<Project />} />
-              <Route path="/task" element={<Task />} />
-            </Route>
+            <Route />
           </Routes>
         </QueryClientProvider>
       </LocalizationProvider>
