@@ -3,7 +3,7 @@ import sys
 from flask import Flask
 from flask_migrate import Migrate, upgrade
 from config import settings
-from models import db, User
+from models import db
 
 
 def create_app():
