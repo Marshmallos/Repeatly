@@ -2,4 +2,4 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-from backend.models.user import User
+from models.user import User
