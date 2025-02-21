@@ -3,15 +3,18 @@ import sys
 from flask import Flask
 from flask_migrate import Migrate, upgrade
 from config import settings
+from extension import ma
 from models import db
 
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_mapping(SECRET_KEY=settings.SECRET_KEY)
-    app.config["SQLALCHEMY_DATABASE_URI"] = settings.DATABASE_URI
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+    app.config.from_mapping(
+        SECRET_KEY=settings.SECRET_KEY,
+        SQLALCHEMY_DATABASE_URI=settings.DATABASE_URI,
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+    )
+    ma.init_app(app)
     db.init_app(app)
 
     from routes import api
@@ -58,5 +61,5 @@ if __name__ == "__main__":
             run_db_upgrade()
         else:
             print(f"Unknown command: {command}")
-
-    app.run(host=settings.HOST, port=settings.PORT)
+    else:
+        app.run(host=settings.HOST, port=settings.PORT, debug=settings.DEBUG_MODE)
