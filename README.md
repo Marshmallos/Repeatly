@@ -2,9 +2,7 @@
 
 A complex process management system
 
-## Frontend
-
-React + Vite + Typescript
+## Frontend (React + Vite + Typescript)
 
 To install packges to run project. Simply run
 
@@ -18,9 +16,7 @@ Run project
 npm run dev
 ```
 
-## Backend
-
-Flask + PostgreSQL
+## Backend (Flask + PostgreSQL)
 
 Create virtual environment and install necessary packages.
 Ensure path is in backend else run `cd backend`
