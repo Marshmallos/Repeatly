@@ -48,16 +48,15 @@ app = create_app()
 migrate = Migrate(app, db)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        app.run(host=settings.HOST, port=settings.PORT)
+    if len(sys.argv) > 2:
+        command = sys.argv[1] + " " + sys.argv[2]
+        if command == "db init":
+            run_db_init()
+        elif command == "db migrate":
+            run_db_migrate()
+        elif command == "db upgrade":
+            run_db_upgrade()
+        else:
+            print(f"Unknown command: {command}")
 
-    command = sys.argv[1] + " " + sys.argv[2]
-    print(command)
-    if command == "db init":
-        run_db_init()
-    elif command == "db migrate":
-        run_db_migrate()
-    elif command == "db upgrade":
-        run_db_upgrade()
-    else:
-        print(f"Unknown command: {command}")
+    app.run(host=settings.HOST, port=settings.PORT)
