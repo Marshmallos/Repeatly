@@ -12,6 +12,7 @@ flask = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 flask-cors = "*"
+werkzeug = "*"
 
 [dev-packages]
 

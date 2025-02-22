@@ -6,7 +6,7 @@ GET {{server}}
 
 ###
 # Get user by id
-GET {{server}}/user-by-id/1
+GET {{server}}/user-by-id/2
 
 ###
 # Create user
@@ -14,7 +14,7 @@ POST {{server}}/create
 Content-Type: application/json
 
 {
-    "username": "john",
+    "username": "testuser1",
     "password": "testpassword",
-    "email": "test123@gmail.com"
+    "email": "testuser123@gmail.com"
 }
