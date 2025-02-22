@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 from models import db, User
+from werkzeug.security import generate_password_hash
 from schemas.userSchema import user_schema, users_schema
 
 users = Blueprint("user", __name__, url_prefix="/users")
@@ -8,30 +9,47 @@ users = Blueprint("user", __name__, url_prefix="/users")
 @users.route("/")
 def user_list():
     users = db.session.scalars(db.select(User).order_by(User.id)).all()
-    return jsonify({"status": "ok", "data": users_schema.dump(users)}), 200
+    return jsonify({"status": "ok", "message": users_schema.dump(users)}), 200
 
 
 @users.route("/user-by-id/<int:id>")
 def user_detail(id):
-    user = db.get_or_404(User, id)
-    return jsonify({"status": "ok", "data": user_schema.dump(user)}), 200
+    user = db.get_or_404(User, id, description="User could not be found")
+    return jsonify({"status": "ok", "message": user_schema.dump(user)}), 200
 
 
 @users.route("/create", methods=["POST"])
 def user_create():
     try:
+        data = request.get_json()
+        username = data.get("username")
+        password = data.get("password")
+
         existing_user = (
-            db.session.execute(
-                db.select(User).filter_by(username=request.get_json()["username"])
-            )
+            db.session.execute(db.select(User).filter_by(username=username))
             .scalars()
             .first()
         )
+
         if existing_user:
-            return jsonify({"status": "error", "data": "User already exists"}), 409
-        user = User(**request.get_json())
+            abort(409, description="Conflict: user already exists")
+
+        data["password"] = generate_password_hash(password)
+        data["password_hash"] = data.pop("password")
+        user = User(**data)
         db.session.add(user)
         db.session.commit()
+
+        return (
+            jsonify(
+                {
+                    "status": "ok",
+                    "message": "Successfully created",
+                    "data": user_schema.dump(user),
+                }
+            ),
+            201,
+        )
     except Exception as e:
-        return jsonify({"status": "error", "data": str(e)}), 400
-    return jsonify({"status": "ok", "data": "Successfully created"}), 200
+        db.session.rollback()  # Rollback changes if an error occurs
+        abort(500, description=str(e))

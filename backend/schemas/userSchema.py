@@ -5,7 +5,7 @@ from models import User
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
-        exclude = ["password"]
+        exclude = ["password_hash"]
 
 
 user_schema = UserSchema()
