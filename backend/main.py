@@ -2,10 +2,13 @@ import os
 import sys
 from flask import Flask
 from flask_cors import CORS
-from flask_migrate import Migrate, upgrade
 from config import settings
 from extension import ma
 from models import db
+from logging_config import setup_logging
+from error_handlers import register_error_handlers
+from flask_migrate import Migrate
+from migrate_db import run_db_init, run_db_migrate, run_db_upgrade
 
 
 def create_app():
@@ -19,34 +22,17 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
 
+    # set up logging
+    setup_logging()
+
+    # register error handlers
+    register_error_handlers(app)
+
     from routes import api
 
     app.register_blueprint(api)
 
     return app
-
-
-def run_db_init():
-    from flask_migrate import init
-
-    # Initialize the migration repository
-    with app.app_context():
-        init()
-    print("Database migration repository initialized.")
-
-
-def run_db_migrate():
-    from flask_migrate import migrate
-
-    with app.app_context():
-        migrate()
-    print("Database migration script created.")
-
-
-def run_db_upgrade():
-    with app.app_context():
-        upgrade()
-        print("Database upgraded to the latest version.")
 
 
 app = create_app()
@@ -56,11 +42,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         command = sys.argv[1] + " " + sys.argv[2]
         if command == "db init":
-            run_db_init()
+            run_db_init(app)
         elif command == "db migrate":
-            run_db_migrate()
+            run_db_migrate(app)
         elif command == "db upgrade":
-            run_db_upgrade()
+            run_db_upgrade(app)
         else:
             print(f"Unknown command: {command}")
     else:
