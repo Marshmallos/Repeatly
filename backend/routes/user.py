@@ -20,6 +20,15 @@ def user_detail(id):
 @users.route("/create", methods=["POST"])
 def user_create():
     try:
+        existing_user = (
+            db.session.execute(
+                db.select(User).filter_by(username=request.get_json()["username"])
+            )
+            .scalars()
+            .first()
+        )
+        if existing_user:
+            return jsonify({"status": "error", "data": "User already exists"}), 409
         user = User(**request.get_json())
         db.session.add(user)
         db.session.commit()

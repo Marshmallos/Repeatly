@@ -1,6 +1,7 @@
 import os
 import sys
 from flask import Flask
+from flask_cors import CORS
 from flask_migrate import Migrate, upgrade
 from config import settings
 from extension import ma
@@ -14,6 +15,7 @@ def create_app():
         SQLALCHEMY_DATABASE_URI=settings.DATABASE_URI,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
+    CORS(app)
     db.init_app(app)
     ma.init_app(app)
 
