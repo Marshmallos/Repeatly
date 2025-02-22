@@ -1,3 +1,10 @@
+import { Login } from "../components";
+
 export default function Welcome() {
-  return <div>Welcome to react + vite + tailwindcss</div>;
+  return (
+    <div className="flex justify-center items-center h-screen bg-sky-500">
+      {/* Enter title here */}
+      <Login />
+    </div>
+  );
 }
