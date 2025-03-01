@@ -1,15 +1,23 @@
 # logging_config.py
+import os
 import logging
 from logging.handlers import RotatingFileHandler
 
 
 def setup_logging():
+
+    # Create folder if not exists
+    log_dirs = "logs"
+    os.makedirs(log_dirs, exist_ok=True)
+
     # Create a logger
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
     # Create a file handler that logs debug and higher level messages
-    file_handler = RotatingFileHandler("logs/app.log", maxBytes=10000, backupCount=1)
+    file_handler = RotatingFileHandler(
+        os.path.join(log_dirs, "app.log"), maxBytes=10000, backupCount=1
+    )
     file_handler.setLevel(logging.DEBUG)
 
     # Create a formatter and set it for the file handler
