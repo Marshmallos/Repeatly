@@ -18,6 +18,9 @@ npm run dev
 
 ## Backend (Flask + PostgreSQL)
 
+Install python 3.12.2 from https://www.python.org/downloads/release/python-3122/
+During installation, select the open to include into PATH
+
 Create virtual environment and install necessary packages.
 Ensure path is in backend else run `cd backend`
 
