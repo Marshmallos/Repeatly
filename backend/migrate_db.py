@@ -8,9 +8,9 @@ def run_db_init(app):
     print("Database migration repository initialized.")
 
 
-def run_db_migrate(app):
+def run_db_migrate(app, message):
     with app.app_context():
-        migrate()
+        migrate(message=message)
     print("Database migration script created.")
 
 

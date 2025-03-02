@@ -44,7 +44,11 @@ if __name__ == "__main__":
         if command == "db init":
             run_db_init(app)
         elif command == "db migrate":
-            run_db_migrate(app)
+            if len(sys.argv) != 4:
+                print("Usage: db migrate 'message'")
+                exit()
+            message = sys.argv[3]
+            run_db_migrate(app, message)
         elif command == "db upgrade":
             run_db_upgrade(app)
         else:
