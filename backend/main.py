@@ -10,32 +10,49 @@ from error_handlers import register_error_handlers
 from flask_migrate import Migrate
 from migrate_db import run_db_init, run_db_migrate, run_db_upgrade
 
+# Import models here
+from models.user import User
+from models.cycle import Cycle
+
+# Import route blueprints
+from routes import api
+from routes.cycle import cycle_bp  # Import the Cycle API
 
 def create_app():
+    """Flask application factory."""
     app = Flask(__name__)
+    
+    # App configuration
     app.config.from_mapping(
         SECRET_KEY=settings.SECRET_KEY,
         SQLALCHEMY_DATABASE_URI=settings.DATABASE_URI,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
+
+    # Enable CORS (Cross-Origin Resource Sharing)
     CORS(app)
+
+    # Initialize extensions
     db.init_app(app)
     ma.init_app(app)
 
-    # set up logging
+    # Set up logging
     setup_logging()
 
-    # register error handlers
+    # Register error handlers
     register_error_handlers(app)
 
-    from routes import api
-
-    app.register_blueprint(api)
+    # Register API blueprints
+    app.register_blueprint(api)         # Existing API routes
+    app.register_blueprint(cycle_bp)    # Register Cycle API
 
     return app
 
 
+# Create app instance
 app = create_app()
+
+# Set up Flask-Migrate for database migrations
 migrate = Migrate(app, db)
 
 if __name__ == "__main__":
@@ -54,4 +71,5 @@ if __name__ == "__main__":
         else:
             print(f"Unknown command: {command}")
     else:
+        # Start Flask app
         app.run(host=settings.HOST, port=settings.PORT, debug=settings.DEBUG_MODE)
