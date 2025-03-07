@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Welcome } from "./pages";
 import { Login } from "./components";
@@ -21,8 +21,7 @@ export default function App() {
               {/* Protected Routes */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/home" element={<Welcome />} />
-                <Route path="/cycles" element={<Cycle />} />{" "}
-                {/* ✅ Added Cycle Route */}
+                <Route path="/cycles" element={<Cycle />} />
               </Route>
 
               {/* Public Routes */}

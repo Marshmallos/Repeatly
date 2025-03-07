@@ -20,12 +20,12 @@ export default function Cycle() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    fetch(`${apiUrl.server}/cycles`)
-      .then((res) => res.json())
-      .then((data) => setCycles(data.cycles))
-      .catch((error) => console.error("Error fetching cycles:", error));
-  }, []);
+  //   useEffect(() => {
+  //     fetch(`${apiUrl.server}/cycles`)
+  //       .then((res) => res.json())
+  //       .then((data) => setCycles(data.cycles))
+  //       .catch((error) => console.error("Error fetching cycles:", error));
+  //   }, []);
 
   const filteredCycles = cycles.filter((cycle) =>
     cycle.name.toLowerCase().includes(searchTerm.toLowerCase())

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router";
 
 export default function Sidebar() {
   return (
@@ -9,20 +9,20 @@ export default function Sidebar() {
       {/* Navigation Links */}
       <ul className="w-full flex flex-col gap-6 text-lg text-center">
         <li>
-          <Link
+          <NavLink
             to="/home"
             className="block p-3 rounded-lg hover:bg-gray-700 transition"
           >
             Home
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link
+          <NavLink
             to="/cycles"
             className="block p-3 rounded-lg hover:bg-gray-700 transition"
           >
             Cycles
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>

@@ -1,15 +1,39 @@
 import { useState } from "react";
 import { apiUrl } from "../../constants";
+import { useMutation } from "@tanstack/react-query";
 
 interface Props {
   onClose: () => void;
+}
+
+interface CycleFormData {
+  name: string;
+  start_date: string;
+  duration: number;
+  description: string;
+}
+
+async function createCycle(formData: CycleFormData) {
+  const url = `${apiUrl.server}/cycle/create`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error creating cycle");
+  }
+
+  return response.json();
 }
 
 export default function CycleModal({ onClose }: Props) {
   // const [templates, setTemplates] = useState<string[]>([]);
   const [templates] = useState<string[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState("");
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<CycleFormData>({
     name: "",
     start_date: "",
     duration: 0,
@@ -20,20 +44,20 @@ export default function CycleModal({ onClose }: Props) {
     setFormData({ ...formData, [key]: value });
   }
 
+  const createCycleMutation = useMutation({
+    mutationFn: createCycle,
+    onSuccess: (res) => {
+      const cycleData = res.data;
+      console.log(cycleData);
+    },
+    onError: (error) => {
+      // alert(error);
+      console.log(error);
+    },
+  });
+
   function handleSubmit() {
-    fetch(`${apiUrl.server}/cycles/create`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData), // now includes start_date
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Server error: ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then(() => onClose())
-      .catch((error) => console.error("Error creating cycle:", error));
+    createCycleMutation.mutate(formData);
   }
 
   return (
