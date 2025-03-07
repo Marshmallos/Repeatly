@@ -1,0 +1,14 @@
+@server = http://localhost:8000/api/cycle
+
+GET {{server}}
+
+###
+POST {{server}}/create
+Content-Type: application/json
+
+{
+    "name": "Chinese New Year",
+    "start_date": "01-02-2025",
+    "duration": 30,
+    "description": "Chinese New Year Preparation"
+}

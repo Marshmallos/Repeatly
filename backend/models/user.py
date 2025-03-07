@@ -9,4 +9,4 @@ class User(db.Model):
     role = db.Column(db.String(80), server_default="unassigned", nullable=True)
 
     def __repr__(self):
-        return f"<User({self.username}>)"
+        return f"<User({self.username})>"

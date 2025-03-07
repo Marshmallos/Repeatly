@@ -10,18 +10,14 @@ from error_handlers import register_error_handlers
 from flask_migrate import Migrate
 from migrate_db import run_db_init, run_db_migrate, run_db_upgrade
 
-# Import models here
-from models.user import User
-from models.cycle import Cycle
-
 # Import route blueprints
 from routes import api
-from routes.cycle import cycle_bp  # Import the Cycle API
+
 
 def create_app():
     """Flask application factory."""
     app = Flask(__name__)
-    
+
     # App configuration
     app.config.from_mapping(
         SECRET_KEY=settings.SECRET_KEY,
@@ -30,7 +26,7 @@ def create_app():
     )
 
     # Enable CORS (Cross-Origin Resource Sharing)
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     # Initialize extensions
     db.init_app(app)
@@ -43,8 +39,7 @@ def create_app():
     register_error_handlers(app)
 
     # Register API blueprints
-    app.register_blueprint(api)         # Existing API routes
-    app.register_blueprint(cycle_bp)    # Register Cycle API
+    app.register_blueprint(api)  # Existing API routes
 
     return app
 
