@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from extension import db
-from models.cycle import Cycle
+from models import db, Cycle
 from schemas.cycleSchema import cycle_schema, cycles_schema
 from datetime import date
 
@@ -11,7 +10,7 @@ cycle_bp = Blueprint("cycle", __name__, url_prefix="/cycle")
 @cycle_bp.route("/", methods=["GET"])
 def get_cycles():
     cycles = db.session.scalars(db.select(Cycle).order_by(Cycle.id)).all()
-    return jsonify({"status": "ok", "message": cycles_schema(cycles)}), 200
+    return jsonify({"status": "ok", "message": cycles_schema.dump(cycles)}), 200
 
 
 # Get a single cycle by ID
