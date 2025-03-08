@@ -11,8 +11,10 @@ def root():
 from routes.users import users_bp
 from routes.auth import authenticate
 from routes.cycle import cycle_bp
+from routes.activities import activities_bp
 
 # register routes to prefix all url with /api/route
 api.register_blueprint(users_bp)
 api.register_blueprint(authenticate)
 api.register_blueprint(cycle_bp)
+api.register_blueprint(activities_bp)

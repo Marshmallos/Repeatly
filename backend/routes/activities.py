@@ -15,7 +15,7 @@ def all_activities():
                 "message": "successfully retrieved activities",
                 "data": activities_Schema.dump(activities),
             }
-        ),
+        )
     ), 200
 
 
@@ -57,7 +57,7 @@ def create_activity():
 
 
 @activities_bp.route("/<int:id>", methods=["DELETE"])
-def delete_activity():
+def delete_activity(id):
     try:
         activity = db.get_or_404(Activity, id, description="Activity does not exist")
         db.session.delete(activity)
