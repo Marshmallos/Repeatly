@@ -5,3 +5,4 @@ db = SQLAlchemy()
 from models.user import User
 from models.cycle import Cycle
 from models.activity import Activity
+from models.task import Task
