@@ -1,0 +1,18 @@
+@server = http://localhost:8000/api/activities
+
+GET {{server}}
+
+###
+GET {{server}}/1
+
+###
+POST {{server}}/create
+Content-Type: application/json
+
+{
+    "name": "time to something",
+    "duration": 2
+}
+
+###
+DELETE {{server}}/1
