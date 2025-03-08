@@ -8,11 +8,11 @@ def root():
     return jsonify({"status": "ok", "data": "Welcome to repeatly backend!"}), 200
 
 
-from routes.user import users
+from routes.users import users_bp
 from routes.auth import authenticate
 from routes.cycle import cycle_bp
 
 # register routes to prefix all url with /api/route
-api.register_blueprint(users)
+api.register_blueprint(users_bp)
 api.register_blueprint(authenticate)
 api.register_blueprint(cycle_bp)
