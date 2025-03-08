@@ -7,8 +7,11 @@ POST {{server}}/create
 Content-Type: application/json
 
 {
-    "name": "Chinese New Year",
-    "start_date": "01-02-2025",
+    "name": "Christmas",
+    "start_date": "01-12-2025",
     "duration": 30,
-    "description": "Chinese New Year Preparation"
+    "description": "Christmas preparations"
 }
+
+###
+DELETE {{server}}/3

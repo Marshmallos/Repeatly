@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, abort
 from models import db, Cycle
 from schemas.cycleSchema import cycle_schema, cycles_schema
-from datetime import date
+from datetime import datetime
 
 cycle_bp = Blueprint("cycle", __name__, url_prefix="/cycle")
 
@@ -34,7 +34,7 @@ def create_cycle():
 
         if existing_cycle:
             abort(409, description="Conflict: cycle already exists")
-        data["start_date"] = date(date_str)
+        data["start_date"] = datetime.strptime(date_str, "%d-%m-%Y").date()
         cycle = Cycle(**data)
         db.session.add(cycle)
         db.session.commit()
@@ -55,12 +55,13 @@ def create_cycle():
 
 
 # Delete a cycle
-@cycle_bp.route("/delete/<int:cycle_id>", methods=["DELETE"])
+@cycle_bp.route("/<int:cycle_id>", methods=["DELETE"])
 def delete_cycle(cycle_id):
-    cycle = Cycle.query.get(cycle_id)
-    if not cycle:
-        return jsonify({"error": "Cycle not found"}), 404
-
-    db.session.delete(cycle)
-    db.session.commit()
-    return jsonify({"message": "Cycle deleted successfully"}), 200
+    try:
+        cycle = db.get_or_404(Cycle, cycle_id, description="Cycle does not exist")
+        db.session.delete(cycle)
+        db.session.commit()
+        return "", 204
+    except Exception as e:
+        db.session.rollback()
+        abort(500, description=str(e))
