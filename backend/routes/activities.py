@@ -15,8 +15,9 @@ def all_activities():
                 "message": "successfully retrieved activities",
                 "data": activities_Schema.dump(activities),
             }
-        )
-    ), 200
+        ),
+        200,
+    )
 
 
 @activities_bp.route("/<int:id>", methods=["GET"])
@@ -29,8 +30,9 @@ def get_activity(id):
                 "message": "Successfully retrieved",
                 "data": activity_Schema.dump(activity),
             }
-        )
-    ), 200
+        ),
+        200,
+    )
 
 
 @activities_bp.route("/create", methods=["POST"])
