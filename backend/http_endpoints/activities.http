@@ -3,15 +3,16 @@
 GET {{server}}
 
 ###
-GET {{server}}/1
+GET {{server}}/6
 
 ###
 POST {{server}}/create
 Content-Type: application/json
 
 {
-    "name": "time to something",
-    "duration": 2
+    "name": "newly created task",
+    "duration": 2,
+    "cycle_id": 5
 }
 
 ###

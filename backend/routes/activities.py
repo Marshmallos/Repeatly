@@ -1,5 +1,8 @@
 from models import db, Activity
-from schemas.activitySchema import activity_Schema, activities_Schema
+from schemas.activitySchema import (
+    activities_schema,
+    activity_tasks_schema,
+)
 from flask import Blueprint, jsonify, request, abort
 
 activities_bp = Blueprint("activities", __name__, url_prefix="/activities")
@@ -13,7 +16,7 @@ def all_activities():
             {
                 "status": "ok",
                 "message": "successfully retrieved activities",
-                "data": activities_Schema.dump(activities),
+                "data": activities_schema.dump(activities),
             }
         ),
         200,
@@ -28,7 +31,7 @@ def get_activity(id):
             {
                 "status": "ok",
                 "message": "Successfully retrieved",
-                "data": activity_Schema.dump(activity),
+                "data": activity_tasks_schema.dump(activity),
             }
         ),
         200,
@@ -39,7 +42,7 @@ def get_activity(id):
 def create_activity():
     try:
         data = request.get_json()
-        name = data["name"]
+        name = data.get("name")
         existing_activity = (
             db.session.execute(db.select(Activity).filter_by(name=name))
             .scalars()
@@ -48,6 +51,7 @@ def create_activity():
 
         if existing_activity:
             abort(409, description="Conflict: activity already exists")
+
         activity = Activity(**data)
         db.session.add(activity)
         db.session.commit()

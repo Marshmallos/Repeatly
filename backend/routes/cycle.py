@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
 from models import db, Cycle
-from schemas.cycleSchema import cycle_schema, cycles_schema
+from schemas.cycleSchema import cycle_schema, cycles_schema, cycle_activity_schema
 from datetime import datetime
 
 cycle_bp = Blueprint("cycle", __name__, url_prefix="/cycle")
@@ -16,8 +16,17 @@ def get_cycles():
 # Get a single cycle by ID
 @cycle_bp.route("/<int:cycle_id>", methods=["GET"])
 def get_cycle(cycle_id):
-    cycle = db.get_or_404(Cycle, id, description="Cycle could not be found")
-    return jsonify({"status": "ok", "message": cycle_schema.dump(cycle)}), 200
+    cycle = db.get_or_404(Cycle, cycle_id, description="Cycle could not be found")
+    return (
+        jsonify(
+            {
+                "status": "ok",
+                "message": "Data retrieved successfully",
+                "data": cycle_activity_schema.dump(cycle),
+            }
+        ),
+        200,
+    )
 
 
 # Create a new cycle

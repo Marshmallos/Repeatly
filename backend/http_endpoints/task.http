@@ -3,15 +3,16 @@
 GET {{server}}
 
 ###
-GET {{server}}/1
+GET {{server}}/2
 
 ###
 POST {{server}}/create
 Content-Type: application/json
 
 {
-    "name":"Go buy groceries",
-    "duration": 1
+    "name":"Buy turkey",
+    "duration": 1,
+    "cycle_id": 5
 }
 
 ###

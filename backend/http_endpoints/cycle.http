@@ -3,6 +3,9 @@
 GET {{server}}
 
 ###
+GET {{server}}/5
+
+###
 POST {{server}}/create
 Content-Type: application/json
 
@@ -14,4 +17,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{server}}/3
+DELETE {{server}}/4
