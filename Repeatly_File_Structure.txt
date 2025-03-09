@@ -1,0 +1,77 @@
+Repeatly/
+  ├── Backend/
+  │    ├── http_endpoints/
+  │    │    ├── auth.http
+  │    │    ├── user.http
+  │    ├── models/
+  │    │    ├── __init__.py
+  │    │    ├── user.py
+  │    ├── routes/
+  │    │    ├── __init__.py
+  │    │    ├── auth.py
+  │    │    ├── user.py
+  │    ├── schemas/
+  │    │    ├── __init__.py
+  │    │    ├── userSchema.py
+  │    ├── __init__.py
+  │    ├── .env
+  │    ├── .env.example
+  │    ├── config.py
+  │    ├── docker-compose.yml
+  │    ├── error_handlers.py
+  │    ├── extension.py
+  │    ├── logging_config.py
+  │    ├── main.py
+  │    ├── migrate_db.py
+  │    ├── Pipfile
+  │    ├── Pipfile.lock
+  │    ├── requirements.txt
+  ├── Frontend/
+  │    ├── src/
+  │    │    ├── assets/
+  │    │    │    ├── login.svg
+  │    │    │    ├── register.svg 
+  │    │    ├── components/
+  │    │    │    ├── index.ts
+  │    │    │    ├── ProtectedRoute.tsx
+  │    │    │    ├── Cycle/
+  │    │    │    │    ├── CycleForm.tsx
+  │    │    │    │    ├── CycleDisplay.tsx
+  │    │    │    │    ├── CycleModal.tsx
+  │    │    │    │    ├── Activity/
+  │    │    │    │    │    ├── ActivityForm.tsx
+  │    │    │    │    │    ├── ActivityModal.tsx
+  │    │    │    │    ├── Task/
+  │    │    │    │    │    ├── ActivityForm.tsx
+  │    │    ├── pages/
+  │    │    │    ├── index.tsx
+  │    │    │    ├── Login.tsx
+  │    │    │    ├── Cycle.tsx
+  │    │    │    ├── Welcome.tsx
+  │    │    ├── constants/
+  │    │    │    ├── index.ts
+  │    │    ├── types/
+  │    │    │    ├── index.ts
+  │    │    │    ├── user.types.ts
+  │    │    ├── utils/
+  │    │    │    ├── AuthContext.tsx
+  │    │    │    ├── AuthContextType.tsx
+  │    │    │    ├── AuthProvider.tsx
+  │    │    │    ├── index.ts
+  │    │    │    ├── Modal.tsx
+  │    │    │    ├── useAuth.tsx
+  │    ├── App.tsx
+  │    ├── index.css
+  │    ├── main.tsx
+  │    ├── vite-env.d.ts
+  │    ├── eslint.config.js
+  │    ├── index.html
+  │    ├── package-lock.json
+  │    ├── package.json
+  │    ├── README.md
+  │    ├── tsconfig.app.json
+  │    ├── tsconfig.json
+  │    ├── tsconfig.node.json
+  │    ├── vite.config.ts
+  ├── .gitignore
+  ├── README.md

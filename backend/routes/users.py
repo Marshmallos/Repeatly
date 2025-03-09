@@ -3,23 +3,23 @@ from models import db, User
 from werkzeug.security import generate_password_hash
 from schemas.userSchema import user_schema, users_schema
 
-users = Blueprint("user", __name__, url_prefix="/users")
+users_bp = Blueprint("users", __name__, url_prefix="/users")
 
 
-@users.route("/")
-def user_list():
+@users_bp.route("/")
+def all_users():
     users = db.session.scalars(db.select(User).order_by(User.id)).all()
     return jsonify({"status": "ok", "message": users_schema.dump(users)}), 200
 
 
-@users.route("/user-by-id/<int:id>")
-def user_detail(id):
+@users_bp.route("/<int:id>")
+def get_user(id):
     user = db.get_or_404(User, id, description="User could not be found")
     return jsonify({"status": "ok", "message": user_schema.dump(user)}), 200
 
 
-@users.route("/create", methods=["POST"])
-def user_create():
+@users_bp.route("/create", methods=["POST"])
+def create_user():
     try:
         data = request.get_json()
         username = data.get("username")

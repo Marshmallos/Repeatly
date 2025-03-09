@@ -1,0 +1,19 @@
+@server = http://localhost:8000/api/activities
+
+GET {{server}}
+
+###
+GET {{server}}/6
+
+###
+POST {{server}}/create
+Content-Type: application/json
+
+{
+    "name": "newly created task",
+    "duration": 2,
+    "cycle_id": 5
+}
+
+###
+DELETE {{server}}/1
