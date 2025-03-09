@@ -1,0 +1,20 @@
+@server =  http://localhost:8000/api/users
+
+
+# All users
+GET {{server}}
+
+###
+# Get user by id
+GET {{server}}/user-by-id/2
+
+###
+# Create user
+POST {{server}}/create
+Content-Type: application/json
+
+{
+    "username": "testuser1",
+    "password": "testpassword",
+    "email": "testuser123@gmail.com"
+}

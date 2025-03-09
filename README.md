@@ -62,3 +62,9 @@ To get backend up simply run
 ```
 python main.py
 ```
+
+### HTTP
+
+To run http files using vscode extensions, install REST client extension
+After installing simply head to backend/http_endpoints and open a file.
+Simple click the send request above each get or post request body

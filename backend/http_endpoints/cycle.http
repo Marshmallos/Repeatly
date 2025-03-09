@@ -1,0 +1,20 @@
+@server = http://localhost:8000/api/cycle
+
+GET {{server}}
+
+###
+GET {{server}}/5
+
+###
+POST {{server}}/create
+Content-Type: application/json
+
+{
+    "name": "Christmas",
+    "start_date": "01-12-2025",
+    "duration": 30,
+    "description": "Christmas preparations"
+}
+
+###
+DELETE {{server}}/4
